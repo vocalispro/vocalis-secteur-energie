@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocalis AI Energie | Agent Vocal IA pour Courtiers en Energie</title>
+    <meta name="description" content="Detectez les contrats arrivant a echeance et convertissez +50% de RDV grace a l'IA vocale. Vocalis AI pour courtiers en energie : appels entrants et sortants automatises.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Vocalis AI | Agent Vocal IA pour Courtiers en Energie">
+    <meta property="og:description" content="Detectez les contrats arrivant a echeance et convertissez +50% de RDV grace a l'IA vocale Vocalis AI.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9889;</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --accent-violet: #6C5CE7;
+            --accent-cyan: #00D2FF;
+            --accent-green: #00E88F;
+            --accent-red: #FF4757;
+            --accent-orange: #FF6B35;
+            --accent-gold: #F0C27F;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-main: linear-gradient(135deg, #1B3A6B, #00D2FF);
+            --gradient-warm: linear-gradient(135deg, #F0C27F, #FC5C7D);
+            --gradient-energy: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+            --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --max-width: 1200px;
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .gradient-text {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-warm {
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-gold {
+            background: linear-gradient(135deg, #F0C27F, #FC5C7D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(27, 58, 107, 0.2);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: white;
+            box-shadow: 0 4px 24px rgba(27, 58, 107, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 210, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-card);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.1);
+        }
+
+        .btn-large {
+            padding: 20px 40px;
+            font-size: 18px;
+            border-radius: 12px;
+        }
+
+        /* ============================================
+           GLASS CARD
+           ============================================ */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius);
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 210, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 210, 255, 0.1);
+        }
+
+        /* ============================================
+           ANIMATED BACKGROUND
+           ============================================ */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .glow-orb-blue { background: #1B3A6B; width: 400px; height: 400px; }
+        .glow-orb-cyan { background: var(--accent-cyan); width: 300px; height: 300px; }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-card);
+            transition: var(--transition);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo { display: flex; flex-direction: column; }
+        .navbar-logo-main { font-family: var(--font-heading); font-size: 20px; font-weight: 700; }
+        .navbar-logo-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .navbar-links a:hover { color: var(--text-primary); }
+
+        .navbar-cta { display: flex; align-items: center; gap: 16px; }
+        .navbar-cta .btn { padding: 10px 24px; font-size: 14px; }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            width: 24px; height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .glow-orb-blue { top: -100px; right: -200px; }
+        .hero .glow-orb-cyan { bottom: -100px; left: -150px; }
+        .hero .container { position: relative; z-index: 1; }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(27, 58, 107, 0.2);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            margin-bottom: 32px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        .hero-description {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.6s ease 0.3s both;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.6s ease 0.4s both;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .hero-stat .check { color: var(--accent-green); font-weight: 700; }
+
+        /* KPI Cards Hero */
+        .hero-kpis {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.5s both;
+        }
+
+        .hero-kpi {
+            background: rgba(27, 58, 107, 0.15);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        .hero-kpi-number {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .hero-kpi-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .hero-trust {
+            font-size: 14px;
+            color: var(--text-muted);
+            animation: fadeInUp 0.6s ease 0.6s both;
+        }
+
+        /* ============================================
+           PROBLEMS SECTION
+           ============================================ */
+        .problems { background: var(--bg-secondary); }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .problem-card { text-align: center; padding: 40px 24px; }
+
+        .problem-card .icon { font-size: 48px; margin-bottom: 20px; }
+
+        .problem-card h3 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-red);
+        }
+
+        .problem-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           PROPOSITION SECTIONS (ENTRANT / SORTANT)
+           ============================================ */
+        .proposition-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .proposition-icon {
+            width: 64px; height: 64px;
+            background: var(--gradient-main);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .proposition-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .proposition-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card { padding: 36px; }
+
+        .feature-card .icon-wrapper {
+            width: 56px; height: 56px;
+            background: rgba(27, 58, 107, 0.2);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Case Study Block */
+        .case-study-block {
+            margin-top: 48px;
+            padding: 36px;
+            background: rgba(27, 58, 107, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: var(--radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-main);
+        }
+
+        .case-study-block h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-cyan);
+        }
+
+        .case-study-block p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .case-study-block strong {
+            color: var(--text-primary);
+        }
+
+        .case-study-source {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ============================================
+           STATS / RESULTS
+           ============================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: clamp(40px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .stat-source {
+            display: block;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           REFERENCES / SOCIAL PROOF
+           ============================================ */
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .ref-card {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ref-card:hover {
+            border-color: rgba(0, 210, 255, 0.4);
+        }
+
+        .ref-source {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .ref-logo {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .ref-source-name {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .ref-source-type {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .ref-stat {
+            font-family: var(--font-heading);
+            font-size: 42px;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .ref-stat-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .ref-detail {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .ref-detail strong {
+            color: var(--accent-cyan);
+        }
+
+        /* ============================================
+           ROI SECTION
+           ============================================ */
+        .roi-section {
+            background: var(--bg-secondary);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        .roi-card {
+            padding: 36px;
+            border-radius: var(--radius);
+        }
+
+        .roi-card.before {
+            background: rgba(255, 71, 87, 0.05);
+            border: 1px solid rgba(255, 71, 87, 0.15);
+        }
+
+        .roi-card.after {
+            background: rgba(0, 232, 143, 0.05);
+            border: 1px solid rgba(0, 232, 143, 0.15);
+        }
+
+        .roi-card h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roi-card.before h3 { color: var(--accent-red); }
+        .roi-card.after h3 { color: var(--accent-green); }
+
+        .roi-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+        }
+
+        .roi-line:last-child { border-bottom: none; }
+
+        .roi-line-label { color: var(--text-secondary); }
+
+        .roi-line-value { font-weight: 700; }
+
+        .roi-highlight {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roi-highlight-card {
+            background: rgba(27, 58, 107, 0.15);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .roi-highlight-number {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .roi-highlight-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           PRICING
+           ============================================ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            align-items: start;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-cyan);
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(0, 210, 255, 0.1);
+        }
+
+        .pricing-card.featured::before {
+            content: 'RECOMMANDE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-main);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card .plan-name {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .pricing-card .plan-price {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .plan-period {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .pricing-card .plan-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-card .plan-features li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-card .plan-features li .check-icon {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .pricing-card .btn { width: 100%; }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .pricing-note strong { color: var(--accent-cyan); }
+
+        /* ============================================
+           TIMELINE DEPLOYMENT
+           ============================================ */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            opacity: 0.3;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-dot {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .timeline-dot.done {
+            background: var(--accent-green);
+        }
+
+        .timeline-day {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           FAQ
+           ============================================ */
+        .faq { background: var(--bg-secondary); }
+
+        .faq-list { max-width: 750px; margin: 0 auto; }
+
+        .faq-item { border-bottom: 1px solid var(--border-card); }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover { color: var(--accent-cyan); }
+
+        .faq-question .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+            color: var(--accent-cyan);
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 24px;
+        }
+
+        .faq-answer p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section { position: relative; overflow: hidden; }
+
+        .cta-card {
+            max-width: 750px;
+            margin: 0 auto;
+            background: rgba(27, 58, 107, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 24px;
+            padding: 64px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.06), transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-card .section-title { position: relative; z-index: 1; }
+
+        .cta-card .section-subtitle {
+            position: relative;
+            z-index: 1;
+            margin: 0 auto 40px;
+        }
+
+        .cta-form { position: relative; z-index: 1; max-width: 500px; margin: 0 auto; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group { position: relative; }
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-input::placeholder { color: var(--text-muted); }
+
+        .form-input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.15);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .form-submit { width: 100%; margin-top: 8px; }
+
+        .form-trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-trust span {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-success { display: none; text-align: center; padding: 40px; }
+        .form-success.show { display: block; }
+        .form-success .success-icon { font-size: 64px; margin-bottom: 16px; }
+        .form-success h3 { font-family: var(--font-heading); font-size: 24px; margin-bottom: 8px; }
+        .form-success p { color: var(--text-secondary); }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 64px 0 32px;
+            border-top: 1px solid var(--border-card);
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .navbar-logo { margin-bottom: 16px; }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+
+        .footer-col ul li a {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover { color: var(--accent-cyan); }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p { font-size: 13px; color: var(--text-muted); }
+        .footer-bottom a { color: var(--accent-cyan); }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin: 0 auto;
+            }
+            .pricing-card.featured { transform: scale(1); }
+            .footer-main { grid-template-columns: 1fr 1fr; }
+            .roi-highlight { grid-template-columns: repeat(3, 1fr); }
+            .ref-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto 48px; }
+        }
+
+        @media (max-width: 768px) {
+            .section { padding: 72px 0; }
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px;
+                border-bottom: 1px solid var(--border-card);
+            }
+            .navbar-links.active { display: flex; }
+            .navbar-cta { display: none; }
+            .mobile-toggle { display: flex; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-stats { flex-direction: column; gap: 12px; }
+            .hero-cta { flex-direction: column; }
+            .hero-cta .btn { width: 100%; }
+            .hero-kpis { grid-template-columns: 1fr; max-width: 280px; }
+            .roi-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 40px 24px; }
+            .footer-main { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .timeline { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .timeline::before { display: none; }
+            .timeline-step { flex-direction: row; width: 100%; text-align: left; gap: 16px; }
+            .roi-highlight { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
+            .proposition-header { flex-direction: column; text-align: center; }
+            .ref-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-card { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Grid -->
+    <div class="bg-grid"></div>
+
+    <!-- ============================================
+         NAVBAR
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-logo">
+                <span class="navbar-logo-main">
+                    <span class="gradient-text">Vocalis AI</span> Energie
+                </span>
+                <span class="navbar-logo-sub">www.vocalis.pro</span>
+            </a>
+
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#defis">Defis</a></li>
+                <li><a href="#entrants">Appels Entrants</a></li>
+                <li><a href="#sortants">Appels Sortants</a></li>
+                <li><a href="#preuves">Preuves</a></li>
+                <li><a href="#roi">ROI</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="#contact" class="btn btn-primary">Demo Gratuite</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero section">
+        <div class="glow-orb glow-orb-blue"></div>
+        <div class="glow-orb glow-orb-cyan"></div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    Solution IA Vocale pour Courtiers en Energie
+                </div>
+
+                <h1>
+                    Vocalis AI pour les<br>
+                    <span class="gradient-text">Courtiers en Energie</span>
+                </h1>
+
+                <p class="hero-description">
+                    Detectez les contrats arrivant a echeance et convertissez <strong>+50% de RDV</strong> grace a l'IA vocale.
+                    Prospection sortante et qualification entrante &mdash; automatisees, intelligentes, redoutablement efficaces.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary btn-large">Demander une Demo</a>
+                    <a href="#entrants" class="btn btn-secondary btn-large">Decouvrir la Solution</a>
+                </div>
+
+                <div class="hero-kpis">
+                    <div class="hero-kpi">
+                        <div class="hero-kpi-number gradient-text">+50%</div>
+                        <div class="hero-kpi-label">de RDV qualifies</div>
+                    </div>
+                    <div class="hero-kpi">
+                        <div class="hero-kpi-number gradient-text">9-4x</div>
+                        <div class="hero-kpi-label">ROI mesure</div>
+                    </div>
+                    <div class="hero-kpi">
+                        <div class="hero-kpi-number gradient-text">2 mois</div>
+                        <div class="hero-kpi-label">Resultats visibles</div>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="check">&#10003;</span> Detection echeances automatique
+                    </div>
+                    <div class="hero-stat">
+                        <span class="check">&#10003;</span> 1000+ appels/jour
+                    </div>
+                    <div class="hero-stat">
+                        <span class="check">&#10003;</span> Conforme RGPD
+                    </div>
+                </div>
+
+                <p class="hero-trust">
+                    Solution deployee par <strong>Vocalis AI</strong> &mdash; vocalis.pro
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PAIN POINTS / DEFIS
+         ============================================ -->
+    <section class="section problems" id="defis">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">01 &mdash; Les Defis</span>
+                <h2 class="section-title">
+                    Le Quotidien des<br>
+                    <span class="gradient-text-warm">Courtiers en Energie</span>
+                </h2>
+                <p class="section-subtitle">
+                    Le marche du courtage en energie est complexe, ultra-concurrentiel et en constante evolution. Voici les 6 defis majeurs que vous affrontez chaque jour.
+                </p>
+            </div>
+
+            <div class="problems-grid">
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#128270;</div>
+                    <h3>Contrats Opaques</h3>
+                    <p>Les contrats energie sont complexes, les dates d'echeance difficiles a trouver. Vous passez des heures a chercher les bonnes informations avant de pouvoir prospecter.</p>
+                </div>
+
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#9876;&#65039;</div>
+                    <h3>Marche Ultra-Concurrentiel</h3>
+                    <p>Vos prospects sont sollicites en permanence par d'autres courtiers, fournisseurs et comparateurs. Arriver le premier au bon moment est la cle.</p>
+                </div>
+
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#9200;</div>
+                    <h3>Cycle de Vente Long</h3>
+                    <p>Identification, audit energetique, proposition, negociation, signature : le cycle complet peut prendre 3 a 6 mois. Chaque etape necessite du suivi.</p>
+                </div>
+
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#128100;</div>
+                    <h3>Joindre le Decideur</h3>
+                    <p>DAF, responsable achats, directeur technique : trouver et joindre le bon interlocuteur dans l'entreprise est un defi constant qui ralentit vos ventes.</p>
+                </div>
+
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#128202;</div>
+                    <h3>Visibilite Consommation</h3>
+                    <p>Pas de visibilite sur la consommation reelle du prospect. Difficile de construire une offre pertinente sans donnees fiables sur les volumes et les postes de depense.</p>
+                </div>
+
+                <div class="glass-card problem-card reveal">
+                    <div class="icon">&#9878;&#65039;</div>
+                    <h3>Reglementation Mouvante</h3>
+                    <p>Tarifs reglementes, ARENH, dispositifs de soutien, evolution du mix energetique : la reglementation change en permanence et complexifie votre discours commercial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PROPOSITION 1 : APPELS ENTRANTS
+         ============================================ -->
+    <section class="section" id="entrants">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">02 &mdash; Appels Entrants</span>
+                <h2 class="section-title">
+                    Reception d'appels &mdash;<br>
+                    <span class="gradient-text">L'IA Qualifie vos Prospects Energie</span>
+                </h2>
+                <p class="section-subtitle">
+                    Vos prospects energie vous contactent. L'IA qualifie immediatement leur besoin, prend le RDV et assure le suivi &mdash; 24h/24.
+                </p>
+            </div>
+
+            <div class="features-grid reveal">
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128269;</div>
+                    <h3>Qualification Immediate</h3>
+                    <p>Type de contrat (electricite, gaz, multi-energies), fournisseur actuel, date d'echeance, volume de consommation. Toutes les informations cles collectees des le premier appel.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128197;</div>
+                    <h3>Prise de RDV Automatique</h3>
+                    <p>L'IA consulte l'agenda des courtiers en temps reel et fixe le RDV avec le courtier disponible le plus pertinent selon l'expertise et le secteur geographique.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128200;</div>
+                    <h3>Information Offres & Comparatifs</h3>
+                    <p>L'agent vocal informe le prospect sur les offres en cours, les tendances tarifaires et les comparatifs entre fournisseurs pour maintenir l'interet.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128161;</div>
+                    <h3>Gestion Demandes d'Audit</h3>
+                    <p>Les demandes d'audit energetique sont collectees, qualifiees et priorisees. L'IA recueille les factures, les donnees de consommation et les coordonnees du decideur.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128101;</div>
+                    <h3>Routage Expert Intelligent</h3>
+                    <p>Pro ou particulier, PME ou grand compte, industrie ou tertiaire : le prospect est oriente vers le bon expert selon son profil et sa taille d'entreprise.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128260;</div>
+                    <h3>Suivi & Relance Automatiques</h3>
+                    <p>Les demandes incompletes sont automatiquement relancees. Documents manquants, factures non recues, rappels de RDV : rien n'est oublie.</p>
+                </div>
+            </div>
+
+            <!-- Case Study Entrant -->
+            <div class="case-study-block reveal">
+                <h4>&#128205; Cas Client &mdash; Cabinet de courtage EnergySwitch Lyon</h4>
+                <p>
+                    La reception automatisee a permis de traiter <strong>100% des demandes entrantes</strong> vs 45% avant.
+                    <strong>+35% de conversions</strong> car aucun lead n'est perdu. Les prospects rappeles dans les 5 minutes
+                    convertissent <strong>9x plus</strong> que ceux rappeles apres 30 minutes.
+                </p>
+                <div class="case-study-source">Source : InsideSales.com Lead Response Study</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PROPOSITION 2 : APPELS SORTANTS
+         ============================================ -->
+    <section class="section" id="sortants" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">03 &mdash; Appels Sortants</span>
+                <h2 class="section-title">
+                    Emission d'appels &mdash;<br>
+                    <span class="gradient-text">Prospection & Relance Automatisees</span>
+                </h2>
+                <p class="section-subtitle">
+                    L'IA detecte les contrats arrivant a echeance, lance des campagnes d'appels ciblees et relance automatiquement les devis non signes.
+                </p>
+            </div>
+
+            <div class="features-grid reveal">
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128269;</div>
+                    <h3>Detection Echeances &lt;6 Mois</h3>
+                    <p>L'IA identifie les contrats arrivant a echeance dans les 6 prochains mois via les donnees publiques et enrichissement de base. Ciblage millimetre.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128222;</div>
+                    <h3>1000+ Appels/Jour</h3>
+                    <p>Campagnes d'appels massives ciblant les entreprises energivores : industrie, logistique, grande distribution, tertiaire. Volume impossible a atteindre humainement.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#127891;</div>
+                    <h3>Script IA Sectorise</h3>
+                    <p>Scripts adaptes au secteur d'activite du prospect : industrie, logistique, tertiaire, commerce. L'IA adapte son discours aux specificites de chaque filiere.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#127873;</div>
+                    <h3>Audit Energetique Gratuit</h3>
+                    <p>Proposition d'un audit energetique gratuit comme accroche commerciale. L'IA presente la valeur ajoutee et qualifie l'interet du prospect avant de fixer le RDV.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128260;</div>
+                    <h3>Relance Devis Non Signes</h3>
+                    <p>Les devis envoyes mais non signes sont automatiquement relances a J+3, J+7, J+14. L'IA detecte les objections et propose des arguments adaptes.</p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper">&#128300;</div>
+                    <h3>A/B Testing Commercial</h3>
+                    <p>Testez differentes approches commerciales en parallele. L'IA mesure les taux de conversion par script, horaire et secteur et optimise automatiquement.</p>
+                </div>
+            </div>
+
+            <!-- Case Study Sortant -->
+            <div class="case-study-block reveal">
+                <h4>&#128205; Cas Client &mdash; Courtier GreenPower Bordeaux</h4>
+                <p>
+                    <strong>500 appels sortants/jour</strong>, <strong>28 RDVs qualifies/semaine</strong>. Le taux de switching a double grace au timing parfait :
+                    contact 2-3 mois avant l'echeance du contrat. <strong>42% des entreprises changent de fournisseur</strong>
+                    quand contactees au bon moment.
+                </p>
+                <div class="case-study-source">Source : CRE (Commission de regulation de l'energie) &mdash; Etude comportement switching entreprises</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PREUVES & DONNEES SECTORIELLES
+         ============================================ -->
+    <section class="section" id="preuves">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">04 &mdash; Preuves Sectorielles</span>
+                <h2 class="section-title">
+                    Les Chiffres qui<br>
+                    <span class="gradient-text">Parlent d'Eux-Memes</span>
+                </h2>
+                <p class="section-subtitle">
+                    Donnees du marche et etudes sectorielles qui confirment le potentiel de l'IA vocale pour les courtiers en energie.
+                </p>
+            </div>
+
+            <div class="stats-grid reveal">
+                <div class="glass-card stat-card">
+                    <div class="stat-number gradient-text">2.8 Mrd&#8364;</div>
+                    <div class="stat-label">Marche du courtage<br>energie en France</div>
+                    <span class="stat-source">Source : Xerfi 2024</span>
+                </div>
+
+                <div class="glass-card stat-card">
+                    <div class="stat-number gradient-text">42%</div>
+                    <div class="stat-label">des entreprises pretes<br>a changer de fournisseur</div>
+                    <span class="stat-source">Source : CRE 2024</span>
+                </div>
+
+                <div class="glass-card stat-card">
+                    <div class="stat-number gradient-text">-65%</div>
+                    <div class="stat-label">Cout d'acquisition<br>client avec IA vocale</div>
+                    <span class="stat-source">Source : McKinsey Energy Transition Report 2024</span>
+                </div>
+
+                <div class="glass-card stat-card">
+                    <div class="stat-number gradient-text">3x</div>
+                    <div class="stat-label">Plus de devis generes<br>par les courtiers avec IA</div>
+                    <span class="stat-source">Source : Accenture Energy Report 2024</span>
+                </div>
+            </div>
+
+            <div class="ref-grid reveal">
+                <!-- Xerfi -->
+                <div class="glass-card ref-card">
+                    <div class="ref-source">
+                        <div class="ref-logo" style="background: linear-gradient(135deg, #2D6A4F, #52B788);">X</div>
+                        <div>
+                            <div class="ref-source-name">Xerfi</div>
+                            <div class="ref-source-type">Etude de marche 2024</div>
+                        </div>
+                    </div>
+                    <div class="ref-stat">2.8 Mrd&#8364;</div>
+                    <div class="ref-stat-label">Le marche du courtage energie en France</div>
+                    <p class="ref-detail">Le courtage en energie est un marche en pleine croissance, porte par la liberalisation du marche et la volatilite des prix. <strong>Les courtiers qui automatisent leur prospection captent plus de parts de marche.</strong></p>
+                </div>
+
+                <!-- CRE -->
+                <div class="glass-card ref-card">
+                    <div class="ref-source">
+                        <div class="ref-logo" style="background: linear-gradient(135deg, #003D6B, #0077B6);">C</div>
+                        <div>
+                            <div class="ref-source-name">CRE</div>
+                            <div class="ref-source-type">Commission de regulation de l'energie 2024</div>
+                        </div>
+                    </div>
+                    <div class="ref-stat">42%</div>
+                    <div class="ref-stat-label">des entreprises changent de fournisseur si contactees au bon moment</div>
+                    <p class="ref-detail">Le timing est tout. Les entreprises contactees <strong>2 a 3 mois avant l'echeance</strong> de leur contrat sont 42% plus susceptibles de changer de fournisseur. L'IA permet ce timing parfait a grande echelle.</p>
+                </div>
+
+                <!-- McKinsey -->
+                <div class="glass-card ref-card">
+                    <div class="ref-source">
+                        <div class="ref-logo" style="background: linear-gradient(135deg, #7B2CBF, #C77DFF);">M</div>
+                        <div>
+                            <div class="ref-source-name">McKinsey</div>
+                            <div class="ref-source-type">Energy Transition Report 2024</div>
+                        </div>
+                    </div>
+                    <div class="ref-stat">-65%</div>
+                    <div class="ref-stat-label">Le cout d'acquisition client diminue avec l'IA vocale</div>
+                    <p class="ref-detail">L'automatisation de la prospection et de la qualification par IA vocale permet de <strong>reduire le cout d'acquisition client de 65%</strong> tout en augmentant le volume de leads qualifies.</p>
+                </div>
+
+                <!-- Accenture -->
+                <div class="glass-card ref-card">
+                    <div class="ref-source">
+                        <div class="ref-logo" style="background: linear-gradient(135deg, #049DBF, #04D9C4);">A</div>
+                        <div>
+                            <div class="ref-source-name">Accenture</div>
+                            <div class="ref-source-type">Energy Report 2024</div>
+                        </div>
+                    </div>
+                    <div class="ref-stat">3x</div>
+                    <div class="ref-stat-label">Les courtiers utilisant l'IA generent 3x plus de devis</div>
+                    <p class="ref-detail">L'IA permet de <strong>multiplier par 3 le volume de devis generes</strong> en automatisant la qualification, la prise de RDV et le suivi. Les equipes commerciales se concentrent sur la signature.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ROI
+         ============================================ -->
+    <section class="section roi-section" id="roi">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">05 &mdash; Retour sur Investissement</span>
+                <h2 class="section-title">
+                    Votre ROI en <span class="gradient-text">Chiffres</span>
+                </h2>
+                <p class="section-subtitle">
+                    Comparaison sur 12 mois. Base : cabinet de courtage energie avec 200 clients et 50 prospects/mois.
+                </p>
+            </div>
+
+            <div class="roi-grid reveal">
+                <div class="roi-card before">
+                    <h3>&#10060; Avant &mdash; Prospection Manuelle</h3>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Commercial dedie (charges)</span>
+                        <span class="roi-line-value">55 000&#8364;/an</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Appels manuels / jour</span>
+                        <span class="roi-line-value">40-60</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">RDV qualifies / semaine</span>
+                        <span class="roi-line-value">5-8</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Taux de conversion devis</span>
+                        <span class="roi-line-value">12%</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Leads perdus (pas de suivi)</span>
+                        <span class="roi-line-value" style="color: var(--accent-red);">60%</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">CA annuel genere</span>
+                        <span class="roi-line-value">120 000&#8364;</span>
+                    </div>
+                </div>
+
+                <div class="roi-card after">
+                    <h3>&#9989; Avec Vocalis AI</h3>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Setup (amorti 12 mois)</span>
+                        <span class="roi-line-value">208&#8364;/mois</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Management mensuel</span>
+                        <span class="roi-line-value">790&#8364;/mois</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Total sur 12 mois</span>
+                        <span class="roi-line-value">11 980&#8364;</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">Appels IA / jour</span>
+                        <span class="roi-line-value" style="color: var(--accent-green);">500-1000</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">RDV qualifies / semaine</span>
+                        <span class="roi-line-value" style="color: var(--accent-green);">25-30</span>
+                    </div>
+                    <div class="roi-line">
+                        <span class="roi-line-label">CA supplementaire genere</span>
+                        <span class="roi-line-value" style="color: var(--accent-green);">+240 000&#8364;</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roi-highlight reveal">
+                <div class="roi-highlight-card">
+                    <div class="roi-highlight-number gradient-text">11 980&#8364;</div>
+                    <div class="roi-highlight-label">Investissement total<br>an 1 (setup + mgmt)</div>
+                </div>
+                <div class="roi-highlight-card">
+                    <div class="roi-highlight-number" style="color: var(--accent-green);">+240 000&#8364;</div>
+                    <div class="roi-highlight-label">CA supplementaire<br>genere / an</div>
+                </div>
+                <div class="roi-highlight-card">
+                    <div class="roi-highlight-number" style="color: var(--accent-green);">20x</div>
+                    <div class="roi-highlight-label">Retour sur<br>investissement</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING / INVESTISSEMENT
+         ============================================ -->
+    <section class="section" id="tarifs">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">06 &mdash; Investissement</span>
+                <h2 class="section-title">
+                    Une Tarification <span class="gradient-text">Simple et Transparente</span>
+                </h2>
+                <p class="section-subtitle">
+                    Setup unique + management mensuel tout inclus. Operationnel en 7 jours.
+                </p>
+            </div>
+
+            <div class="pricing-grid reveal">
+                <!-- Setup -->
+                <div class="glass-card pricing-card">
+                    <div class="plan-name">SETUP</div>
+                    <div class="plan-price gradient-text">2 500&#8364;</div>
+                    <div class="plan-period">HT &middot; paiement unique</div>
+                    <ul class="plan-features">
+                        <li><span class="check-icon">&#10003;</span> Agent vocal configure sur mesure</li>
+                        <li><span class="check-icon">&#10003;</span> Scenarios courtage energie parametres</li>
+                        <li><span class="check-icon">&#10003;</span> Integration CRM & outils metier</li>
+                        <li><span class="check-icon">&#10003;</span> Scripts appels entrants + sortants</li>
+                        <li><span class="check-icon">&#10003;</span> Dashboard personnalise</li>
+                        <li><span class="check-icon">&#10003;</span> Formation equipe incluse</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Configuration en 7 jours</a>
+                </div>
+
+                <!-- Management -->
+                <div class="glass-card pricing-card featured">
+                    <div class="plan-name">MANAGEMENT MENSUEL</div>
+                    <div class="plan-price gradient-text">790&#8364;</div>
+                    <div class="plan-period">HT / mois &middot; tout inclus</div>
+                    <ul class="plan-features">
+                        <li><span class="check-icon">&#10003;</span> Appels entrants & sortants illimites</li>
+                        <li><span class="check-icon">&#10003;</span> Detection echeances automatique</li>
+                        <li><span class="check-icon">&#10003;</span> Campagnes prospection IA</li>
+                        <li><span class="check-icon">&#10003;</span> Relance devis automatique</li>
+                        <li><span class="check-icon">&#10003;</span> A/B testing & optimisation continue</li>
+                        <li><span class="check-icon">&#10003;</span> Rapport de performance mensuel</li>
+                        <li><span class="check-icon">&#10003;</span> Support prioritaire reactif</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Demarrer Maintenant</a>
+                </div>
+            </div>
+
+            <p class="pricing-note reveal">
+                <strong>Engagement : 3 mois minimum</strong> &mdash; Libre apres 3 mois &middot; Vos donnees vous appartiennent &middot; Conformite RGPD assuree
+            </p>
+
+            <!-- Timeline Deploiement -->
+            <div style="margin-top: 80px;">
+                <h3 class="section-title reveal" style="text-align: center; font-size: 28px; margin-bottom: 48px;">
+                    Operationnel en <span class="gradient-text">7 Jours</span>
+                </h3>
+
+                <div class="timeline reveal">
+                    <div class="timeline-step">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-day">J+1</div>
+                        <div class="timeline-label">Signature &<br>paiement setup</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-day">J+2</div>
+                        <div class="timeline-label">Briefing offres<br>& scripts</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-day">J+4</div>
+                        <div class="timeline-label">Configuration<br>& parametrage IA</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-day">J+6</div>
+                        <div class="timeline-label">Tests &<br>validation</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot done">&#10003;</div>
+                        <div class="timeline-day" style="color: var(--accent-green);">J+7</div>
+                        <div class="timeline-label">Go Live !<br>Premiers appels</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FAQ
+         ============================================ -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">07 &mdash; FAQ</span>
+                <h2 class="section-title">
+                    Questions <span class="gradient-text">Frequentes</span>
+                </h2>
+            </div>
+
+            <div class="faq-list reveal">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Comment l'IA detecte-t-elle les contrats arrivant a echeance ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>L'IA exploite les donnees publiques disponibles, les bases de donnees sectorielles et les informations que vos prospects partagent lors des appels. Elle croise ces donnees pour identifier les entreprises dont le contrat arrive a echeance dans les 2 a 6 prochains mois, permettant un contact au moment optimal.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        L'IA est-elle capable de gerer les objections specifiques au secteur energie ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui. Les scripts sont parametres avec les objections les plus courantes du secteur : "je suis deja en contrat", "j'ai un tarif negocie", "je ne veux pas changer", etc. L'IA est formee sur la reglementation energie (ARENH, TRV, marche de gros) et adapte ses arguments en consequence.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Quel volume d'appels l'IA peut-elle traiter par jour ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>En mode sortant, l'IA peut effectuer plus de 1 000 appels par jour, avec des conversations personnalisees pour chaque prospect. En mode entrant, elle peut gerer un nombre illimite d'appels simultanes. Le volume est ajustable selon vos besoins et votre capacite a traiter les RDV generes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        L'IA remplace-t-elle mes courtiers ou commerciaux ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Non. L'IA prend en charge la prospection de masse et la qualification initiale (80% du volume d'appels). Vos courtiers se concentrent sur les RDV qualifies, la negociation et la signature des contrats &mdash; les etapes a forte valeur ajoutee ou l'expertise humaine est indispensable.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Comment s'integre Vocalis avec mon CRM et mes outils existants ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vocalis dispose de connecteurs natifs pour les principaux CRM (Salesforce, HubSpot, Pipedrive) et peut s'integrer via API REST a vos outils metier specifiques energie. Les RDV, fiches contact et comptes-rendus d'appels sont synchronises automatiquement.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Est-ce conforme a la reglementation RGPD et Bloctel ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolument. Vocalis respecte le RGPD, verifie automatiquement la liste Bloctel avant chaque appel B2C, et se conforme aux reglementations de la CNIL sur le demarchage telephonique. Les appels B2B sont realises dans le cadre de l'interet legitime. Donnees hebergees en Europe, chiffrement AES-256.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA / CONTACT
+         ============================================ -->
+    <section class="section cta-section" id="contact">
+        <div class="container">
+            <div class="cta-card reveal">
+                <h2 class="section-title">
+                    Pret a Transformer votre<br>
+                    <span class="gradient-text">Courtage Energie</span> ?
+                </h2>
+                <p class="section-subtitle">
+                    Demandez votre demo gratuite et decouvrez combien de RDV qualifies Vocalis peut generer pour votre cabinet.
+                </p>
+
+                <div class="cta-form" id="ctaForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Prenom" required id="firstName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Nom" required id="lastName">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Email professionnel" required id="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-input" placeholder="Telephone" id="phone">
+                        </div>
+                        <div class="form-group full-width">
+                            <select class="form-select" id="activite">
+                                <option value="" disabled selected>Type d'activite</option>
+                                <option value="courtier-electricite">Courtier Electricite</option>
+                                <option value="courtier-gaz">Courtier Gaz</option>
+                                <option value="courtier-multi">Courtier Multi-Energies</option>
+                                <option value="negociant">Negociant Energie</option>
+                                <option value="fournisseur-alternatif">Fournisseur Alternatif</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <select class="form-select" id="volume">
+                                <option value="" disabled selected>Volume de prospection souhaite</option>
+                                <option value="100-500">100 - 500 appels/jour</option>
+                                <option value="500-1000">500 - 1 000 appels/jour</option>
+                                <option value="1000+">Plus de 1 000 appels/jour</option>
+                                <option value="entrant">Principalement appels entrants</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large form-submit" onclick="submitForm()">
+                        Demander ma Demo Gratuite
+                    </button>
+
+                    <div class="form-trust">
+                        <span>&#128274; Donnees securisees</span>
+                        <span>&#9201; Reponse sous 24h</span>
+                        <span>&#128176; Sans engagement</span>
+                    </div>
+                </div>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">&#10004;&#65039;</div>
+                    <h3>Demande envoyee !</h3>
+                    <p>Notre equipe vous contactera sous 24h pour planifier votre demo personnalisee.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="navbar-logo">
+                        <span class="navbar-logo-main">
+                            <span class="gradient-text">Vocalis AI</span> Energie
+                        </span>
+                        <span class="navbar-logo-sub">www.vocalis.pro</span>
+                    </div>
+                    <p>L'agent vocal IA qui transforme la prospection des courtiers en energie. Plus de RDV, plus de contrats, moins d'effort.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Solution</h4>
+                    <ul>
+                        <li><a href="#entrants">Appels Entrants</a></li>
+                        <li><a href="#sortants">Appels Sortants</a></li>
+                        <li><a href="#preuves">Preuves</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Ressources</h4>
+                    <ul>
+                        <li><a href="#">Guide Integration</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Etudes de Cas</a></li>
+                        <li><a href="#">Webinaires</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Mentions Legales</a></li>
+                        <li><a href="#">Politique de Confidentialite</a></li>
+                        <li><a href="#">CGV</a></li>
+                        <li><a href="#">Conformite RGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Vocalis AI &mdash; <a href="https://vocalis.pro" target="_blank">vocalis.pro</a> &middot; VAULT 369 LTD</p>
+                <p>contact@vocalis.pro</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Mobile Navigation
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+            }
+        });
+
+        // FAQ Accordion
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+            if (!isActive) faqItem.classList.add('active');
+        }
+
+        // Form Submission
+        function submitForm() {
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            if (!firstName || !email) {
+                alert('Veuillez remplir au minimum votre prenom et email.');
+                return;
+            }
+            document.getElementById('ctaForm').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
